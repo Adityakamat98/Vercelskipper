@@ -66,14 +66,20 @@ const CONFIG = {
  */
 function sendMessageToPopup(message, type = 'info') {
   try {
-    // Try to send message to extension if popup is open
-    if (typeof chrome !== 'undefined' && chrome.runtime) {
-      chrome.runtime.sendMessage({ action: 'updateStatus', message, type }).catch(() => {
-        // Popup might be closed, ignore error
-      });
+    // Check if extension context is valid
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id) {
+      // Wrap in try-catch and suppress the error
+      const promise = chrome.runtime.sendMessage({ action: 'updateStatus', message, type });
+
+      // Only add catch handler if promise exists
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(() => {
+          // Popup is closed, silently ignore
+        });
+      }
     }
   } catch (e) {
-    // Silently fail if messaging not available
+    // Extension context invalid or popup closed, silently fail
   }
 }
 
