@@ -62,6 +62,7 @@ skipButton.addEventListener('click', async () => {
       files: ['content.js']
     });
 
+<<<<<<< HEAD
     // Trigger the script execution
     await chrome.scripting.executeScript({
       target: { tabId: activeTab.id },
@@ -75,6 +76,8 @@ skipButton.addEventListener('click', async () => {
       }
     });
 
+=======
+>>>>>>> b389e22f506be968f569165f9a70909288cb6d0e
     // Show success message
     updateStatus('Process started...', 'success');
 
