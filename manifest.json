@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Vercel: Skip Deployment Checks",
+  "version": "1.0",
+  "description": "One-click skipping for all deployment checks on vercel.com.",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Skip Vercel Deployment Checks"
+  },
+  "host_permissions": [
+    "https://vercel.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://vercel.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
